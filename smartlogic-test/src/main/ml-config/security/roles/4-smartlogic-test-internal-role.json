@@ -1,0 +1,5 @@
+{
+  "role-name" : "smartlogic-test-internal",
+  "description" : "Internal role used for amping",
+  "role" : [ "smartlogic-test-writer" ]
+}

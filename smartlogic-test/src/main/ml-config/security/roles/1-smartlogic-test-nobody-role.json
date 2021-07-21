@@ -1,0 +1,5 @@
+{
+  "role-name" : "smartlogic-test-nobody",
+  "description" : "Unauthenticated user",
+  "role" : [ ]
+}

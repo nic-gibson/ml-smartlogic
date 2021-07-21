@@ -1,0 +1,44 @@
+plugins {
+	id "maven-publish"
+}
+
+group = "org.noslogan"
+version = "0.1.1"
+
+configurations {
+	bundle
+}
+
+task bundleJar(type: Jar) {
+	from("src/main/ml-config") {
+		into("ml-smartlogic//ml-config")
+	}
+	from("src/main/ml-modules") {
+		into("ml-smartlogic/ml-modules")
+  }
+	destinationDirectory = file("build/libs")
+	archiveBaseName = "ml-smartlogic"
+}
+
+artifacts {
+	bundle bundleJar
+}
+
+publishing {
+	repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/nic-gibson/hub-queue")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USER")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_PUBLISH_KEY")
+            }
+        }
+    }
+	publications {
+		mainBundle(MavenPublication) {
+			artifactId "ml-smartlogic"
+			artifact bundleJar
+		}
+	}
+}
